@@ -1,4 +1,4 @@
-# JavaFundamentals-SumOfInput
+# JavaFundamentals-ProductOfInput
 
 * **Objective** - To create an `InputEvaluator` which is capable of identifying valid-user-names.
 * **Purpose**
@@ -11,7 +11,7 @@
     * You are provided with a java class named `InputEvaluator`
     * Your objective is to complete the `run` method by following the line-by-line comments describing the algorithm to be implemented
     * In short, our objective is:
-        * Write a program which prompts the user to input a value then return the sum of all numbers between 1 and that value inclusively
+        * Write a program which prompts the user to input a value then return the product of all numbers between 1 and that value inclusively
 
 
 

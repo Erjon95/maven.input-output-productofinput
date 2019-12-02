@@ -4,13 +4,13 @@ public class InputEvaluator {
     public void run() {
         // prompt user to input number
         // get user input
-        // create sum variable
+        // create product variable
 
         // create counter variable
         // evaluate input from user
-            // add counter to sum
+            // multiply counter by product
             // increment counter by 1
 
-        // display sum to user
+        // display product to user
     }
 }
