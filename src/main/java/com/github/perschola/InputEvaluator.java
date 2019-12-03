@@ -1,35 +1,38 @@
 package com.github.perschola;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class InputEvaluator {
     public void run() {
-        // prompt user to input number
-        // get user input
-        // create product variable
 
-        // create counter variable
-        // evaluate input from user
-            // multiply counter by product
-            // increment counter by 1
+        int input = -1;
 
-        // display product to user
+        System.out.println("Please enter a positive integer:");
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Please enter an integer");
-        do{
-            int input = scanner.nextInt();
+        do {
+            if (!scanner.hasNextInt()) {
+              
+                System.out.println("Please enter a positive integer:");
+                scanner.nextLine();
+            } else {
+                input = scanner.nextInt();
 
+                if (input < 0)
+                {
+                    System.out.println("Please enter a positive integer:");
+                    
+                } else {
+                    int product = 1;
 
+                    if (input > 0)
+                        for (int i = 1; i <= input; i++)
+                            product *= i;
 
-        int product = 1;
-
-        for (int i = 1; i <= input; i++)
-            product *= i;
-
-        System.out.println("The factorial of " + input + " " + product);
-
-
+                    System.out.println("The factorial of " + input + " is " + product);
+                    break;
+                }
+            }
+        }while (!scanner.hasNextInt() || (input < 0));
     }
 }
