@@ -1,38 +1,94 @@
 package com.github.perschola;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class InputEvaluator {
-    public void run() {
 
-        int input = -1;
+    private int number;
+    private long factorial;
+    private boolean exc, posInput;
 
-        System.out.println("Please enter a positive integer:");
-        Scanner scanner = new Scanner(System.in);
+    public boolean isPosInput() {
+        return posInput;
+    }
 
-        do {
-            if (!scanner.hasNextInt()) {
-              
-                System.out.println("Please enter a positive integer:");
-                scanner.nextLine();
-            } else {
-                input = scanner.nextInt();
+    public void setPosInput(boolean posInput) {
+        this.posInput = posInput;
+    }
 
-                if (input < 0)
-                {
+    public InputEvaluator(){exc = true; posInput = false; factorial = 1; number = -1;}
+
+    private boolean isExc() {
+        return exc;
+    }
+
+    private void setExc(boolean exc) {
+        this.exc = exc;
+    }
+
+    private int getNumber() {
+        return number;
+    }
+
+    private void setNumber(int number) {
+        this.number = number;
+    }
+
+    private long getFactorial() {
+        return factorial;
+    }
+
+    private void setFactorial(long factorial) {
+        this.factorial = factorial;
+    }
+
+    private void readInputFromUser(Scanner scanner) {
+        while (!isPosInput()) {
+            while (isExc()) {
+                setExc(false);
+                try {
+                    setNumber(scanner.nextInt());
+                } catch (InputMismatchException ime) {
+                    System.out.println("Please, enter an integer");
+                    setExc(true);
+                    setPosInput(false);
+                    scanner.nextLine();
+                }
+
+                if (!isExc() & (getNumber() < 0)) {
+                    setPosInput(false);
+                    setExc(true);
                     System.out.println("Please enter a positive integer:");
-                    
-                } else {
-                    int product = 1;
-
-                    if (input > 0)
-                        for (int i = 1; i <= input; i++)
-                            product *= i;
-
-                    System.out.println("The factorial of " + input + " is " + product);
-                    break;
+                    scanner.nextLine();
+                }
+                if (!isExc() & (getNumber() >= 0)) {
+                    setPosInput(true);
+                    scanner.close();
                 }
             }
-        }while (!scanner.hasNextInt() || (input < 0));
+        }
+    }
+
+    private void calculateFactorialOfInput()
+    {
+        if (getNumber() == 0)
+            setFactorial(1);
+        else {
+            for (AtomicInteger i = new AtomicInteger(getNumber()); i.get() > 1; i.getAndDecrement())
+                setFactorial(getFactorial() * i.get());
+        }
+    }
+
+    protected void run() {
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Please, enter an integer");
+
+        readInputFromUser(scanner);
+        calculateFactorialOfInput();
+        System.out.println("The factorial of " + getNumber() + " is " + getFactorial());
     }
 }
